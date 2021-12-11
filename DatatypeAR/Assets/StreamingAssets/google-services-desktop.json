@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "489680863261",
+    "project_id": "datatypear",
+    "storage_bucket": "datatypear.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489680863261:android:9cbf3320d85d8e65fd46f4",
+        "android_client_info": {
+          "package_name": "uk.edu.le.co3201.DatatypeAR"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489680863261-3o567il7e8sp0jh85i7q164gn5dqik6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Fl_W780yRU5gBxRGngOaIlOJPBQgeDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489680863261-3o567il7e8sp0jh85i7q164gn5dqik6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
