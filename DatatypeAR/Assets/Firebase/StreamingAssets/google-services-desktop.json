@@ -1,10 +1,9 @@
 {
-    "project_info": {
-        "firebase_url":"null", 
-        "project_number": "489680863261",
-        "project_id": "datatypear",
-        "storage_bucket": "datatypear.appspot.com"
-    },
+  "project_info": {
+    "project_number": "489680863261",
+    "project_id": "datatypear",
+    "storage_bucket": "datatypear.appspot.com"
+  },
   "client": [
     {
       "client_info": {
