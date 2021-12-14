@@ -19,6 +19,8 @@ public class AuthUIManager : MonoBehaviour
     private GameObject verifyEmailUI;
     [SerializeField]
     private TMP_Text verifyEmailText;
+    [SerializeField]
+    private GameObject mainMenuUI;
 
     private void Awake()
     {
@@ -38,6 +40,7 @@ public class AuthUIManager : MonoBehaviour
         registerUI.SetActive(false);
         accountsMenuUI.SetActive(false);
         verifyEmailUI.SetActive(false);
+        mainMenuUI.SetActive(false);
         FirebaseManager.instance.ClearOutputs();
     }
 
@@ -65,6 +68,18 @@ public class AuthUIManager : MonoBehaviour
         {
             verifyEmailText.text = $"Email Not Sent: {outputError}\n Please Verify {email}";
         }
+    }
+
+    public void MainMenu()
+    {
+        ClearUI();
+        mainMenuUI.SetActive(true);
+    }
+
+    public void AccountsMenu()
+    {
+        ClearUI();
+        accountsMenuUI.SetActive(true);
     }
 
 }

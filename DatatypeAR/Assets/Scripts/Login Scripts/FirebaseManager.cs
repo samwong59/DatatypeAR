@@ -94,7 +94,7 @@ public class FirebaseManager : MonoBehaviour
         } 
         else
         {
-            AuthUIManager.instance.LoginScreen();
+            AuthUIManager.instance.AccountsMenu();
         }
     }
 
@@ -104,7 +104,7 @@ public class FirebaseManager : MonoBehaviour
         {
             if (user.IsEmailVerified)
             {
-                GameManager.instance.ChangeScene(1);
+                AuthUIManager.instance.MainMenu();
             }
             else
             {
@@ -114,7 +114,7 @@ public class FirebaseManager : MonoBehaviour
 
         else
         {
-            AuthUIManager.instance.LoginScreen();
+            AuthUIManager.instance.AccountsMenu();
         }
     }
 
@@ -153,6 +153,12 @@ public class FirebaseManager : MonoBehaviour
     public void RegisterButton()
     {
         StartCoroutine(RegisterLogic(registerUsername.text, registerEmail.text, registerPassword.text, registerConfirmPassword.text));
+    }
+
+    public void SignOut()
+    {
+        auth.SignOut();
+        AuthUIManager.instance.AccountsMenu();
     }
 
     private IEnumerator LoginLogic(string email, string password)
@@ -194,7 +200,7 @@ public class FirebaseManager : MonoBehaviour
             if (user.IsEmailVerified)
             {
                 yield return new WaitForSeconds(1f);
-                GameManager.instance.ChangeScene(1);
+                AuthUIManager.instance.MainMenu();
             }
             else
             {
