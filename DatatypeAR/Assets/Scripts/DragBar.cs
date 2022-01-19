@@ -20,6 +20,7 @@ public class DragBar : MonoBehaviour
     [SerializeField]
     private TMP_Text ScoreText;
     private int score = 0;
+    private Camera cam;
 
     public class Value
     {
@@ -46,6 +47,7 @@ public class DragBar : MonoBehaviour
 
     private void Start()
     {
+        cam = FindObjectOfType<Camera>();
         chests = GameObject.FindGameObjectsWithTag("Chest");
         CreateValues();
         SelectNewValue();
@@ -70,6 +72,20 @@ public class DragBar : MonoBehaviour
     private void OnMouseDrag()
     {
         transform.position = getMouseWorldPos() + mOffset;
+        Vector3 screenPos = cam.WorldToScreenPoint(transform.position);
+        if (screenPos.x < 80)
+        {
+            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
+        } else if (screenPos.y < 80)
+        {
+            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
+        } else if (screenPos.x > cam.pixelWidth - 80)
+        {
+            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
+        } else if (screenPos.y > cam.pixelHeight - 40)
+        {
+            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
+        }
     }
 
     private void OnMouseUp()
