@@ -1,0 +1,6 @@
+"Hello",String
+8,Integer
+8.7,Float
+1.0,Float
+"Bonjour",String
+77,Integer

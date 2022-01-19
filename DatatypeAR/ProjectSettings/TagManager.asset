@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bar
   - Chest
+  - GoldBarText
+  - CountdownText
   layers:
   - Default
   - TransparentFX

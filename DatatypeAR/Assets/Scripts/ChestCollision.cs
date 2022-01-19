@@ -16,7 +16,7 @@ public class ChestCollision : MonoBehaviour
 
     private void Deposit()
     {
-        if (Vector3.Distance (gameObject.transform.position, bar.transform.position) < 3)
+        if (Vector3.Distance (gameObject.transform.position, bar.transform.position) < 2)
         {
             animator.ResetTrigger("Close");
             animator.SetTrigger("Open");
