@@ -477,17 +477,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4090485074951322, guid: e6fd1715965d63043a413dea8f583622, type: 3}
   m_PrefabInstance: {fileID: 242384555}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1168148114 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1923528324, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
-  m_PrefabInstance: {fileID: 1509084994}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1245644446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -622,9 +611,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: FloatChestText
       objectReference: {fileID: 0}
+    - target: {fileID: 795609901, guid: e6fd1715965d63043a413dea8f583622, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 795609902, guid: e6fd1715965d63043a413dea8f583622, type: 3}
       propertyPath: m_text
       value: Float
+      objectReference: {fileID: 0}
+    - target: {fileID: 795609902, guid: e6fd1715965d63043a413dea8f583622, type: 3}
+      propertyPath: m_fontSize
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 795609902, guid: e6fd1715965d63043a413dea8f583622, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1632052825836748, guid: e6fd1715965d63043a413dea8f583622, type: 3}
       propertyPath: m_Name
@@ -633,6 +634,18 @@ PrefabInstance:
     - target: {fileID: 4090485074951322, guid: e6fd1715965d63043a413dea8f583622, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090485074951322, guid: e6fd1715965d63043a413dea8f583622, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090485074951322, guid: e6fd1715965d63043a413dea8f583622, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4090485074951322, guid: e6fd1715965d63043a413dea8f583622, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4090485074951322, guid: e6fd1715965d63043a413dea8f583622, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1012,21 +1025,13 @@ PrefabInstance:
       propertyPath: ScoreText
       value: 
       objectReference: {fileID: 1284152339}
-    - target: {fileID: 1556095153, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
-      propertyPath: goldBarText
-      value: 
-      objectReference: {fileID: 1168148114}
-    - target: {fileID: 1923528322, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
-      propertyPath: m_Name
-      value: GoldBarText
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923528322, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
-      propertyPath: m_TagString
-      value: GoldBarText
+    - target: {fileID: 1923528323, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1923528324, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
       propertyPath: m_text
-      value: 
+      value: '''Programming is fun'''
       objectReference: {fileID: 0}
     - target: {fileID: 1923528324, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
       propertyPath: m_fontSize
@@ -1043,6 +1048,18 @@ PrefabInstance:
     - target: {fileID: 4147114331781828, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147114331781828, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147114331781828, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147114331781828, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 4147114331781828, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
       propertyPath: m_LocalPosition.x

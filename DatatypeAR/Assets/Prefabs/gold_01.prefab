@@ -112,8 +112,8 @@ GameObject:
   - component: {fileID: 1923528325}
   - component: {fileID: 1923528324}
   m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_Name: GoldBarText
+  m_TagString: GoldBarText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"Hello"'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: accdff7b47f8eda48bb6462660ad1c0f, type: 2}
   m_sharedMaterial: {fileID: 2221986475084183765, guid: accdff7b47f8eda48bb6462660ad1c0f, type: 2}
@@ -192,8 +192,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.15
+  m_fontSizeBase: 0.15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -345,7 +345,7 @@ Transform:
   m_GameObject: {fileID: 1594879466734162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 9, y: 9, z: 9}
   m_Children:
   - {fileID: 4327178240586742}
   m_Father: {fileID: 0}
@@ -411,3 +411,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2186038540a33b7449601ce86316489e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldBarText: {fileID: 1923528324}
+  ScoreText: {fileID: 0}
