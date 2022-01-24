@@ -32,6 +32,7 @@ public class CountdownTimer : MonoBehaviour
     private IEnumerator FinishLevel()
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene("ResultsScreenDatatype");
+        
+        //SceneManager.LoadScene("ResultsScreenDatatype");
     }
 }

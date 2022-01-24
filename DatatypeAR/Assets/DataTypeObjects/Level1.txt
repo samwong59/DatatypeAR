@@ -4,7 +4,7 @@
 'Hola',str
 'Konnichiwa',str
 'Python',str
-'Programming',str
+'Programming is fun',str
 'Football',str
 8,int
 77,int
