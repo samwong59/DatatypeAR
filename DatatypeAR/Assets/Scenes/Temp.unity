@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21092844b747f874285d16c90f14bddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beachPrefab: {fileID: 7015383167762723696, guid: 9f9c30f300641734aaa3d8fe27accb8c, type: 3}
+  levelPrefab: {fileID: 7015383167762723696, guid: 9f9c30f300641734aaa3d8fe27accb8c, type: 3}
 --- !u!114 &912129849
 MonoBehaviour:
   m_ObjectHideFlags: 0
