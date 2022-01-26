@@ -1,26 +1,17 @@
 using UnityEngine;
 using TMPro;
-using System.IO;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System;
 
 public class DragBar : MonoBehaviour
 {
-
-    private Vector3 mOffset;
-    private float mZCoord;
-    private GameObject[] chests;
     [SerializeField]
     TMP_Text goldBarText;
     private List<Value> availableValues = new List<Value>();
     private List<Value> usedValues = new List<Value>();
     private System.Random random = new System.Random();
-    private Value currentValue;
-    [SerializeField]
-    private TMP_Text ScoreText;
-    private int score = 0;
-    private Camera cam;
+    public Value currentValue;
 
     public class Value
     {
@@ -45,86 +36,26 @@ public class DragBar : MonoBehaviour
     }
 
 
-    private void Start()
+    public void InitialValue()
     {
-        cam = FindObjectOfType<Camera>();
-        chests = GameObject.FindGameObjectsWithTag("Chest");
         CreateValues();
         SelectNewValue();
     }
 
-    private void OnMouseDown()
-    {
-        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-        // Store offset - gameobject world pos - mouse world pos
-        mOffset = gameObject.transform.position - getMouseWorldPos();
-    }
-
-    private Vector3 getMouseWorldPos()
-    {
-        Vector3 mousePoint = Input.mousePosition;
-
-        mousePoint.z = mZCoord;
-
-        return Camera.main.ScreenToWorldPoint(mousePoint);
-    }
-
-    private void OnMouseDrag()
-    {
-        transform.position = getMouseWorldPos() + mOffset;
-        Vector3 screenPos = cam.WorldToScreenPoint(transform.position);
-        if (screenPos.x < 80)
-        {
-            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
-        } else if (screenPos.y < 80)
-        {
-            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
-        } else if (screenPos.x > cam.pixelWidth - 80)
-        {
-            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
-        } else if (screenPos.y > cam.pixelHeight - 40)
-        {
-            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
-        }
-    }
-
-    private void OnMouseUp()
-    {
-        foreach (GameObject chest in chests)
-        {
-            if (Vector3.Distance(gameObject.transform.position, chest.transform.position) < 2) {
-            
-            gameObject.transform.position = new Vector3(0, 3.3f, (float)-5.5);
-            if (currentValue.getDataType() + "Chest" == chest.name)
-                {
-                    score++;
-                    ScoreText.text = "Score: " + score.ToString();
-                }
-            else
-                {
-                    Debug.Log("Incorrect");
-                }
-
-            SelectNewValue();
-            }
-        }
-    }
-
     private void CreateValues()
     {
-        string path = "Assets/DataTypeObjects/Level1.txt";
-        StreamReader reader = new StreamReader(path);
-        string line;
-        while ((line = reader.ReadLine()) != null)
+        TextAsset asset = Resources.Load<TextAsset>("Level1Values");
+        string assetText = asset.ToString();
+        string[] assetTextLines = Regex.Split(assetText, Environment.NewLine);
+        foreach (string line in assetTextLines)
         {
-            string[] split = line.Split(',');
+            string[] split = line.Trim().Split(',');
             Value value = new Value(split[0], split[1]);
             availableValues.Add(value);
         }
-        reader.Close();
     }
 
-    private void SelectNewValue()
+    public void SelectNewValue()
     {
         if (currentValue != null)
         {
@@ -134,6 +65,7 @@ public class DragBar : MonoBehaviour
         int index = random.Next(availableValues.Count);
         currentValue = availableValues[index];
         goldBarText.text = currentValue.getValue();
+        Debug.Log("Current Value: " + currentValue);
     }
 
 }

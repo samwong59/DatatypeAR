@@ -1,20 +1,61 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using TMPro;
 
 public class ARPlaceBeach : MonoBehaviour
 {
     [SerializeField]
     private GameObject levelPrefab;
 
+    [SerializeField]
+    private GameObject barPrefab;
+
     private ARRaycastManager raycastManager;
 
     private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    private bool isLevelSet = false;
+    private GameObject placedLevel;
+
+    private GameObject placedGoldBar;
 
     private ARSessionOrigin mSessionOrigin;
+
+    private bool onTouchHold = false;
+
+    private Vector2 touchPosition;
+
+    private RaycastHit hitObject;
+
+    private TMP_Text goldBarText;
+
+    private DragBar goldBarScript;
+
+    [SerializeField]
+    private TMP_Text scoreText;
+    private int score = 0;
+
+    public class Value
+    {
+        string dataType;
+        string value;
+
+        public Value(string value, string datatype)
+        {
+            this.value = value;
+            this.dataType = datatype;
+        }
+
+        public string getValue()
+        {
+            return value;
+        }
+
+        public string getDataType()
+        {
+            return dataType;
+        }
+    }
 
     private void Awake()
     {
@@ -25,58 +66,74 @@ public class ARPlaceBeach : MonoBehaviour
     private void Update()
     {
         Touch touch;
-        if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+        if (Input.touchCount < 1)
         {
             return;
         }
 
-        if (raycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.All))
+        touch = Input.GetTouch(0);
+
+        if (touch.phase == TouchPhase.Began)
         {
-            if (!isLevelSet)
+            if (placedLevel == null)
             {
-                CreateAnchor(hits[0]);
+                if (raycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinBounds))
+                {
+                    CreateAnchor(hits[0]);
+                }
             }
 
-            Debug.Log("$Instantiated on: {hits[0].hitType}");
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+
+            if (Physics.Raycast(ray, out hitObject, 50.0f))
+            {
+                if (hitObject.transform.name == "intChest" || hitObject.transform.name == "floatChest" || hitObject.transform.name == "strChest")
+                {
+                    if (Equals((goldBarScript.currentValue.getDataType() + "Chest"), hitObject.transform.name))
+                    {
+                        score++;
+                        scoreText.text = "Score: " + score;
+                        goldBarScript.SelectNewValue();
+                    }
+                    else
+                    {
+                        goldBarScript.SelectNewValue();
+                    }
+                }
+            }
         }
 
+        if (touch.phase == TouchPhase.Ended)
+        {
+            onTouchHold = false;
+        }
     }
+
 
     ARAnchor CreateAnchor(in ARRaycastHit hit)
     {
         ARAnchor anchor;
 
-        //if (hit.trackable is ARPlane plane)
-        //{
-        //    var planeManager = GetComponent<ARPlaneManager>();
-        //    if (planeManager)
-        //    {
-        //        var anchorManager = GetComponent<ARAnchorManager>();
-        //        var oldPrefab = anchorManager.anchorPrefab;
-        //        anchorManager.anchorPrefab = levelPrefab;
-        //        anchor = anchorManager.AttachAnchor(plane, hit.pose);
-        //        anchorManager.anchorPrefab = oldPrefab;
+        placedLevel = Instantiate(levelPrefab);
+        placedLevel.transform.position = new Vector3(placedLevel.transform.position.x - 0.225f, placedLevel.transform.position.y, placedLevel.transform.position.z - 0.225f);
 
-        //        Debug.Log($"Create anchor attachment for plane (id: {anchor.nativePtr}).");
-        //        isLevelSet = true;
-        //        return anchor;
-        //    }
-        //}
+        placedGoldBar = Instantiate(barPrefab);
+        placedGoldBar.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
 
-        var instantiatedObject = Instantiate(levelPrefab);
-        instantiatedObject.transform.position = new Vector3(instantiatedObject.transform.position.x - 0.225f, instantiatedObject.transform.position.y, instantiatedObject.transform.position.z - 0.225f);
-        mSessionOrigin.MakeContentAppearAt(instantiatedObject.transform, hit.pose.position, hit.pose.rotation);
+        mSessionOrigin.MakeContentAppearAt(placedLevel.transform, hit.pose.position, hit.pose.rotation);
 
 
-        anchor = instantiatedObject.GetComponent<ARAnchor>();
+        anchor = placedLevel.GetComponent<ARAnchor>();
         if (anchor == null)
         {
-            anchor = instantiatedObject.AddComponent<ARAnchor>();
+            anchor = placedLevel.AddComponent<ARAnchor>();
         }
 
-        Debug.Log($"Created regular anchor (id: {anchor.nativePtr}.");
+        Debug.Log("Calling Initial Value Method");
+        goldBarScript = placedGoldBar.GetComponent<DragBar>();
+        goldBarScript.InitialValue();
 
-        isLevelSet = true;
+        Debug.Log($"Created regular anchor (id: {anchor.nativePtr}.");
 
         return anchor;
     }

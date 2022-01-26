@@ -16,7 +16,7 @@
 507,int
 8.7,float
 1.0,float
-77.0,flaot
+77.0,float
 60.8,float
 -67.0,float
 -21.6,float

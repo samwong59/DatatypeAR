@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 1556095155}
   - component: {fileID: 1556095153}
   m_Layer: 0
-  m_Name: gold_01
+  m_Name: goldBar
   m_TagString: Bar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,14 +343,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594879466734162}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: -0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 9}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4327178240586742}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 270}
 --- !u!95 &95643549688268718
 Animator:
   serializedVersion: 3

@@ -374,6 +374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPrefab: {fileID: 7015383167762723696, guid: 9f9c30f300641734aaa3d8fe27accb8c, type: 3}
+  barPrefab: {fileID: 1594879466734162, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
+  scoreText: {fileID: 1284152339}
 --- !u!114 &912129849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +764,7 @@ GameObject:
   - component: {fileID: 1965717806}
   m_Layer: 0
   m_Name: AR Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
