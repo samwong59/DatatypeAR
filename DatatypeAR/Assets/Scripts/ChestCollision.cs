@@ -10,14 +10,38 @@ public class ChestCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void Deposit()
     {
+
+            //animator.ResetTrigger("Close");
+            //animator.SetTrigger("Open");
+
+            //animator.ResetTrigger("Open");
+            //animator.SetTrigger("Close");
+
     }
 
-    private void FixedUpdate()
+    public void OpenChestAnimation()
+    {
+        animator.ResetTrigger("Open");
+        animator.ResetTrigger("Shake");
+        animator.SetTrigger("Open");
+    }
+
+    public void CloseChestAnimation()
     {
     }
+
+    public void ShakeChestAnimation()
+    {
+        animator.ResetTrigger("Shake");
+        animator.ResetTrigger("Open");
+        animator.SetTrigger("Shake");
+    }
+
+
 
 }

@@ -8,6 +8,8 @@ TagManager:
   - Chest
   - GoldBarText
   - CountdownText
+  - LevelCanvas
+  - PreLevelCanvas
   layers:
   - Default
   - TransparentFX

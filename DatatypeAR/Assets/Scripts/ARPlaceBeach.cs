@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using TMPro;
+using System.Collections;
 
 public class ARPlaceBeach : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class ARPlaceBeach : MonoBehaviour
     private TMP_Text goldBarText;
 
     private DragBar goldBarScript;
+
+    [SerializeField]
+    private GameObject preLevelCanvas;
+
+    [SerializeField]
+    private GameObject levelCanvas;
 
     [SerializeField]
     private TMP_Text scoreText;
@@ -65,6 +72,19 @@ public class ARPlaceBeach : MonoBehaviour
 
     private void Update()
     {
+        if (preLevelCanvas.activeSelf)
+        {
+            return;
+        }
+
+        if (placedGoldBar != null)
+        {
+            if (!placedGoldBar.activeSelf)
+            {
+                return;
+            }
+        }
+
         Touch touch;
         if (Input.touchCount < 1)
         {
@@ -80,6 +100,7 @@ public class ARPlaceBeach : MonoBehaviour
                 if (raycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinBounds))
                 {
                     CreateAnchor(hits[0]);
+                    levelCanvas.SetActive(true);
                 }
             }
 
@@ -91,12 +112,16 @@ public class ARPlaceBeach : MonoBehaviour
                 {
                     if (Equals((goldBarScript.currentValue.getDataType() + "Chest"), hitObject.transform.name))
                     {
+                        hitObject.transform.gameObject.GetComponent<ChestCollision>().OpenChestAnimation();
+                        StartCoroutine(HideGoldBar());
                         score++;
                         scoreText.text = "Score: " + score;
                         goldBarScript.SelectNewValue();
                     }
                     else
                     {
+                        hitObject.transform.gameObject.GetComponent<ChestCollision>().ShakeChestAnimation();
+                        StartCoroutine(HideGoldBar());
                         goldBarScript.SelectNewValue();
                     }
                 }
@@ -115,7 +140,7 @@ public class ARPlaceBeach : MonoBehaviour
         ARAnchor anchor;
 
         placedLevel = Instantiate(levelPrefab);
-        placedLevel.transform.position = new Vector3(placedLevel.transform.position.x - 0.225f, placedLevel.transform.position.y, placedLevel.transform.position.z - 0.225f);
+        placedLevel.transform.position = new Vector3(placedLevel.transform.position.x - 0.5f, placedLevel.transform.position.y, placedLevel.transform.position.z - 0.5f);
 
         placedGoldBar = Instantiate(barPrefab);
         placedGoldBar.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
@@ -128,13 +153,18 @@ public class ARPlaceBeach : MonoBehaviour
         {
             anchor = placedLevel.AddComponent<ARAnchor>();
         }
-
-        Debug.Log("Calling Initial Value Method");
         goldBarScript = placedGoldBar.GetComponent<DragBar>();
         goldBarScript.InitialValue();
 
-        Debug.Log($"Created regular anchor (id: {anchor.nativePtr}.");
-
         return anchor;
+    }
+
+    IEnumerator HideGoldBar()
+    {
+        placedGoldBar.SetActive(false);
+
+        yield return new WaitForSeconds(1);
+
+        placedGoldBar.SetActive(true);
     }
 }
