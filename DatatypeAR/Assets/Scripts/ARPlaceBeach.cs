@@ -139,19 +139,21 @@ public class ARPlaceBeach : MonoBehaviour
     {
         ARAnchor anchor;
 
+        GameObject emptyGameObject = Instantiate(new GameObject("Empty"));
+
         placedLevel = Instantiate(levelPrefab);
-        placedLevel.transform.position = new Vector3(placedLevel.transform.position.x - 0.5f, placedLevel.transform.position.y, placedLevel.transform.position.z - 0.5f);
+        placedLevel.transform.position = new Vector3(emptyGameObject.transform.position.x - 0.225f, emptyGameObject.transform.position.y, emptyGameObject.transform.position.z);
 
         placedGoldBar = Instantiate(barPrefab);
         placedGoldBar.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
 
-        mSessionOrigin.MakeContentAppearAt(placedLevel.transform, hit.pose.position, hit.pose.rotation);
+        mSessionOrigin.MakeContentAppearAt(emptyGameObject.transform, hit.pose.position, hit.pose.rotation);
 
 
-        anchor = placedLevel.GetComponent<ARAnchor>();
+        anchor = emptyGameObject.GetComponent<ARAnchor>();
         if (anchor == null)
         {
-            anchor = placedLevel.AddComponent<ARAnchor>();
+            anchor = emptyGameObject.AddComponent<ARAnchor>();
         }
         goldBarScript = placedGoldBar.GetComponent<DragBar>();
         goldBarScript.InitialValue();
