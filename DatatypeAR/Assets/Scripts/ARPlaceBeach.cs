@@ -39,6 +39,9 @@ public class ARPlaceBeach : MonoBehaviour
     private GameObject levelCanvas;
 
     [SerializeField]
+    private GameObject pauseMenu;
+
+    [SerializeField]
     private TMP_Text scoreText;
     private int score = 0;
 
@@ -72,7 +75,7 @@ public class ARPlaceBeach : MonoBehaviour
 
     private void Update()
     {
-        if (preLevelCanvas.activeSelf)
+        if (preLevelCanvas.activeSelf || pauseMenu.activeSelf)
         {
             return;
         }
