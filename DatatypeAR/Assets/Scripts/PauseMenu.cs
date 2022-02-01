@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -13,15 +12,9 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     private GameObject pauseCanvas;
 
-    private void Start()
-    {
-        levelCanvas = GameObject.FindGameObjectWithTag("LevelCanvas");
-    }
-
     public void Pause()
     {
         isGamePaused = true;
-        Debug.Log("GamePaused: " + isGamePaused);
         GamePause();
     }
 
@@ -41,8 +34,8 @@ public class PauseMenu : MonoBehaviour
         } else
         {
             Time.timeScale = 1f;
-            pauseCanvas.SetActive(false);
             levelCanvas.SetActive(true);
+            pauseCanvas.SetActive(false);
         }
     }
 
@@ -50,5 +43,15 @@ public class PauseMenu : MonoBehaviour
     {
         isGamePaused = true;
         Time.timeScale = 0f;
+    }
+
+    public void RestartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void QuitLevel()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

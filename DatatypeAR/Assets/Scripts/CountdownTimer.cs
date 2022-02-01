@@ -13,7 +13,7 @@ public class CountdownTimer : MonoBehaviour
 
     private void Start()
     {
-        startingTime = 15f;
+        startingTime = 60f;
         currentTime = startingTime;
     }
 
