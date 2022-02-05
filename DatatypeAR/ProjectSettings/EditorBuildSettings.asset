@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Temp.unity
-    guid: 14cf6c6394c73ae4ba4849e714a5d4f6
-  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: afaeb2d60d4faeb44adc7fb67e69fe07
   - enabled: 1
-    path: Assets/Scenes/ResultsScreenDatatype.unity
-    guid: f7c30d3ec1f682c4e9d57a3badbf896f
+    path: Assets/Scenes/Pog.unity
+    guid: 0ce7ddb99bba356498d8dd9b2f425fb9
+  - enabled: 1
+    path: Assets/Scenes/Temp.unity
+    guid: 14cf6c6394c73ae4ba4849e714a5d4f6
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: ae68e01af31babd4ba33fda88caa085b, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fb393b3d20d3d124bb36dd64e51647f7, type: 2}

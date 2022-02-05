@@ -91,6 +91,8 @@ public class FirebaseManager : MonoBehaviour
             yield return new WaitUntil(predicate: () => reloadUserTask.IsCompleted);
 
             AutoLogin();
+
+            AuthUIManager.instance.MainMenu();
         } 
         else
         {
