@@ -1,16 +1,40 @@
-using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
-public class PauseMenu : MonoBehaviour
+public class MenuHandler : MonoBehaviour
 {
 
+    [SerializeField]
+    GameObject resultCanvas;
+    [SerializeField]
+    GameObject levelCanvas;
+    [SerializeField]
+    GameObject pauseCanvas;
+    [SerializeField]
+    GameObject ARSessionOrigin;
     private bool isGamePaused = false;
 
-    [SerializeField]
-    private GameObject levelCanvas;
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
 
-    [SerializeField]
-    private GameObject pauseCanvas;
+    public void FinishLevel()
+    {
+        StartCoroutine(FinishLevelLogic());
+    }
+    
+    private IEnumerator FinishLevelLogic()
+    {
+        levelCanvas.SetActive(false);
+        ARSessionOrigin.GetComponent<ARPlaceBeach>().enabled = false;
+
+        yield return new WaitForSeconds(3);
+        
+        Time.timeScale = 0f;
+        resultCanvas.SetActive(true);
+    }
 
     public void Pause()
     {
@@ -24,14 +48,15 @@ public class PauseMenu : MonoBehaviour
         GamePause();
     }
 
-    public void GamePause()
+    private void GamePause()
     {
         if (isGamePaused)
         {
             levelCanvas.SetActive(false);
             pauseCanvas.SetActive(true);
             Time.timeScale = 0f;
-        } else
+        }
+        else
         {
             Time.timeScale = 1f;
             levelCanvas.SetActive(true);

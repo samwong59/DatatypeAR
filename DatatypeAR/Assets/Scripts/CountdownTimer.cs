@@ -6,15 +6,18 @@ using System.Collections;
 public class CountdownTimer : MonoBehaviour
 {
     float currentTime;
+    [SerializeField]
     float startingTime;
-
     [SerializeField]
     private TMP_Text countdownText;
+    [SerializeField]
+    GameObject menuHandlerObject;
+    MenuHandler menuHandler;
 
     private void Start()
     {
-        startingTime = 60f;
         currentTime = startingTime;
+        menuHandler = menuHandlerObject.GetComponent<MenuHandler>();
     }
 
     private void Update()
@@ -25,14 +28,8 @@ public class CountdownTimer : MonoBehaviour
         if(currentTime <= 0)
         {
             currentTime = 0;
-            StartCoroutine(FinishLevel());
+            menuHandler.FinishLevel();
         }
     }
 
-    private IEnumerator FinishLevel()
-    {
-        yield return new WaitForSeconds(3);
-        
-        //SceneManager.LoadScene("ResultsScreenDatatype");
-    }
 }
