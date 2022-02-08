@@ -8,42 +8,35 @@ public class ARPlaceBeach : MonoBehaviour
 {
     [SerializeField]
     private GameObject levelPrefab;
-
     [SerializeField]
     private GameObject barPrefab;
+    [SerializeField]
+    private GameObject tickPrefab;
+    [SerializeField]
+    private GameObject crossPrefab;
 
     private ARRaycastManager raycastManager;
-
     private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private GameObject placedLevel;
-
     private GameObject placedGoldBar;
+    private GameObject placedCross;
+    private GameObject placedTick;
 
     private ARSessionOrigin mSessionOrigin;
-
-    private bool onTouchHold = false;
-
     private Vector2 touchPosition;
-
     private RaycastHit hitObject;
-
     private TMP_Text goldBarText;
-
     private DragBar goldBarScript;
-
     [SerializeField]
     private GameObject preLevelCanvas;
-
     [SerializeField]
     private GameObject levelCanvas;
-
     [SerializeField]
     private GameObject pauseMenu;
-
     [SerializeField]
     private TMP_Text scoreText;
-    private int score = 0;
+    public int score = 0;
 
     public class Value
     {
@@ -116,7 +109,7 @@ public class ARPlaceBeach : MonoBehaviour
                     if (Equals((goldBarScript.currentValue.getDataType() + "Chest"), hitObject.transform.name))
                     {
                         hitObject.transform.gameObject.GetComponent<ChestCollision>().OpenChestAnimation();
-                        StartCoroutine(HideGoldBar());
+                        StartCoroutine(HideGoldBar(true));
                         score++;
                         scoreText.text = "Score: " + score;
                         goldBarScript.SelectNewValue();
@@ -124,16 +117,11 @@ public class ARPlaceBeach : MonoBehaviour
                     else
                     {
                         hitObject.transform.gameObject.GetComponent<ChestCollision>().ShakeChestAnimation();
-                        StartCoroutine(HideGoldBar());
+                        StartCoroutine(HideGoldBar(false));
                         goldBarScript.SelectNewValue();
                     }
                 }
             }
-        }
-
-        if (touch.phase == TouchPhase.Ended)
-        {
-            onTouchHold = false;
         }
     }
 
@@ -150,6 +138,14 @@ public class ARPlaceBeach : MonoBehaviour
         placedGoldBar = Instantiate(barPrefab);
         placedGoldBar.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
 
+        placedCross = Instantiate(crossPrefab);
+        placedCross.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
+        placedCross.SetActive(false);
+
+        placedTick = Instantiate(tickPrefab);
+        placedTick.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
+        placedTick.SetActive(false);
+
         mSessionOrigin.MakeContentAppearAt(emptyGameObject.transform, hit.pose.position, hit.pose.rotation);
 
 
@@ -164,12 +160,21 @@ public class ARPlaceBeach : MonoBehaviour
         return anchor;
     }
 
-    IEnumerator HideGoldBar()
+    IEnumerator HideGoldBar(bool correctAnswer)
     {
         placedGoldBar.SetActive(false);
+        if (correctAnswer)
+        {
+            placedTick.SetActive(true);
+        } else
+        {
+            placedCross.SetActive(true);
+        }
 
         yield return new WaitForSeconds(1);
 
+        placedTick.SetActive(false);
+        placedCross.SetActive(false);
         placedGoldBar.SetActive(true);
     }
 }

@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
+using Firebase;
+using Firebase.Auth;
 
 public class MenuHandler : MonoBehaviour
 {
@@ -14,10 +17,17 @@ public class MenuHandler : MonoBehaviour
     [SerializeField]
     GameObject ARSessionOrigin;
     private bool isGamePaused = false;
+    [SerializeField]
+    TMP_Text scoreText;
+    [SerializeField]
+    TMP_Text statusText;
+    FirebaseAuth auth;
 
     private void Start()
     {
+        auth = FirebaseAuth.DefaultInstance;
         Time.timeScale = 1f;
+        statusText.text = auth.CurrentUser.DisplayName;
     }
 
     public void FinishLevel()
@@ -28,6 +38,7 @@ public class MenuHandler : MonoBehaviour
     private IEnumerator FinishLevelLogic()
     {
         levelCanvas.SetActive(false);
+        scoreText.text = "You scored " + ARSessionOrigin.GetComponent<ARPlaceBeach>().score.ToString() + " points";
         ARSessionOrigin.GetComponent<ARPlaceBeach>().enabled = false;
 
         yield return new WaitForSeconds(3);
