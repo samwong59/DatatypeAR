@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Firestore;
 using TMPro;
 
 public class FirebaseManager : MonoBehaviour
 {
     public static FirebaseManager instance;
+    private FirebaseFirestore storage;
 
     [Header("Firebase")]
     public FirebaseAuth auth;
@@ -74,6 +76,7 @@ public class FirebaseManager : MonoBehaviour
 
     private void InitializeFirebase()
     {
+        storage = FirebaseFirestore.DefaultInstance;
         auth = FirebaseAuth.DefaultInstance;
         StartCoroutine(CheckAutoLogin());
 
@@ -255,9 +258,9 @@ public class FirebaseManager : MonoBehaviour
             }
             else
             {
-                UserProfile profile = new UserProfile 
-                { 
-                    DisplayName = username 
+                UserProfile profile = new UserProfile
+                {
+                    DisplayName = username
                 };
 
 
@@ -285,6 +288,18 @@ public class FirebaseManager : MonoBehaviour
                 else
                 {
                     Debug.Log($"Firebase User Created Successfully: {user.DisplayName} ({user.UserId})");
+
+                    DocumentReference userLevelData = storage.Collection("UserLevelData").Document(user.UserId);
+                    Dictionary<string, object> availableLevels = new Dictionary<string, object>
+                    {
+                        {"Level1", true},
+                        {"Level2", false},
+                        {"Level3", false},
+                        {"Level4", false},
+                    };
+                    var documentTask = userLevelData.SetAsync(availableLevels, SetOptions.MergeAll);
+
+                    yield return new WaitUntil(predicate: () => documentTask.IsCompleted);
 
                     StartCoroutine(SendVerificationEmail());
                 }

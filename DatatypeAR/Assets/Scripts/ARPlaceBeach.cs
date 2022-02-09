@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using TMPro;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class ARPlaceBeach : MonoBehaviour
 {
@@ -137,6 +138,10 @@ public class ARPlaceBeach : MonoBehaviour
 
         placedGoldBar = Instantiate(barPrefab);
         placedGoldBar.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
+        goldBarScript = placedGoldBar.GetComponent<DragBar>();
+        
+        // Set values for level
+        goldBarScript.InitialValue("Level1Values");
 
         placedCross = Instantiate(crossPrefab);
         placedCross.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
@@ -154,8 +159,6 @@ public class ARPlaceBeach : MonoBehaviour
         {
             anchor = emptyGameObject.AddComponent<ARAnchor>();
         }
-        goldBarScript = placedGoldBar.GetComponent<DragBar>();
-        goldBarScript.InitialValue();
 
         return anchor;
     }
@@ -163,11 +166,14 @@ public class ARPlaceBeach : MonoBehaviour
     IEnumerator HideGoldBar(bool correctAnswer)
     {
         placedGoldBar.SetActive(false);
+
         if (correctAnswer)
         {
+            SoundManagerScript.PlaySound("correct");
             placedTick.SetActive(true);
         } else
         {
+            SoundManagerScript.PlaySound("incorrect");
             placedCross.SetActive(true);
         }
 

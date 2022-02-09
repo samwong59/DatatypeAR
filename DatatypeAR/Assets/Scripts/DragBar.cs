@@ -36,15 +36,15 @@ public class DragBar : MonoBehaviour
     }
 
 
-    public void InitialValue()
+    public void InitialValue(string level)
     {
-        CreateValues();
+        CreateValues(level);
         SelectNewValue();
     }
 
-    private void CreateValues()
+    private void CreateValues(string level)
     {
-        TextAsset asset = Resources.Load<TextAsset>("Level1Values");
+        TextAsset asset = Resources.Load<TextAsset>(level);
         string assetText = asset.ToString();
         string[] assetTextLines = Regex.Split(assetText, Environment.NewLine);
         foreach (string line in assetTextLines)
