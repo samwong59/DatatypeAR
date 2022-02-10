@@ -4,6 +4,10 @@ using UnityEngine;
 using TMPro;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Firestore;
+using Firebase.Extensions;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public class MenuHandler : MonoBehaviour
 {
@@ -15,19 +19,43 @@ public class MenuHandler : MonoBehaviour
     [SerializeField]
     GameObject pauseCanvas;
     [SerializeField]
+    GameObject preLevelCanvas;
+    [SerializeField]
     GameObject ARSessionOrigin;
     private bool isGamePaused = false;
     [SerializeField]
     TMP_Text scoreText;
     [SerializeField]
     TMP_Text statusText;
-    FirebaseAuth auth;
+    FirebaseAuth fAuth;
+    [SerializeField]
+    private string nextLevelName;
+    private FirebaseFirestore fStore;
+    private bool isNextLevelUnlocked;
+    private int score;
+    Dictionary<string, object> levelData;
 
-    private void Start()
+    void Start()
     {
-        auth = FirebaseAuth.DefaultInstance;
+        resultCanvas.SetActive(false);
+        levelCanvas.SetActive(false);
+        pauseCanvas.SetActive(false);
+        preLevelCanvas.SetActive(true);
+
+        fAuth = FirebaseAuth.DefaultInstance;
+        fStore = FirebaseFirestore.DefaultInstance;
         Time.timeScale = 1f;
-        statusText.text = auth.CurrentUser.DisplayName;
+
+        GetLevelData();
+    }
+
+    void GetLevelData()
+    {
+        fStore.Collection("UserLevelData").Document(fAuth.CurrentUser.UserId).GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            isNextLevelUnlocked = task.Result.GetValue<bool>(nextLevelName);
+            levelData = task.Result.ToDictionary();
+        });
     }
 
     public void FinishLevel()
@@ -38,13 +66,45 @@ public class MenuHandler : MonoBehaviour
     private IEnumerator FinishLevelLogic()
     {
         levelCanvas.SetActive(false);
-        scoreText.text = "You scored " + ARSessionOrigin.GetComponent<ARPlaceBeach>().score.ToString() + " points";
+        score = ARSessionOrigin.GetComponent<ARPlaceBeach>().score;
+        scoreText.text = "You scored " + score.ToString() + " points";
         ARSessionOrigin.GetComponent<ARPlaceBeach>().enabled = false;
 
         yield return new WaitForSeconds(1);
         
         Time.timeScale = 0f;
         resultCanvas.SetActive(true);
+        SetStatusText();
+    }
+
+    void SetStatusText()
+    {
+        if (!isNextLevelUnlocked)
+        {
+            if (score > 15)
+            {
+                isNextLevelUnlocked = true;
+                statusText.text = "Congrats, you unlocked the next level";
+                updateUserLevelData();
+            } else
+            {
+                statusText.text = "You need to score at least 15 to move on to the next level, try again";
+            }
+        }
+    }
+
+    void updateUserLevelData()
+    {
+        levelData[nextLevelName] = true;
+        fStore.Collection("UserLevelData").Document(fAuth.CurrentUser.UserId).UpdateAsync(levelData);
+    }
+
+    public void PlayNextLevel()
+    {
+        if (isNextLevelUnlocked)
+        {
+            SceneManager.LoadScene(nextLevelName);
+        }
     }
 
     public void Pause()

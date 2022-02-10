@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdf9ff5dbabfe64ab74968bd63cee9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 60
+  startingTime: 30
   countdownText: {fileID: 58501059}
   menuHandlerObject: {fileID: 1281817068}
 --- !u!1 &59149855
@@ -291,7 +291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &59149856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &79591003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,9 +1191,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
-        m_MethodName: LoginButton
+      - m_Target: {fileID: 1281817069}
+        m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
+        m_MethodName: PlayNextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2445,6 +2445,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 59149855}
   scoreText: {fileID: 1284152339}
   score: 0
+  valuesFilePath: ChestLevelValues/Level1Values
 --- !u!114 &912129849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2667,10 +2668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Congrats, you unlocked the next level
-
-    Extra Line just for testing
-    purposes
+  m_text: '
 
 '
   m_isRightToLeft: 0
@@ -3593,9 +3591,11 @@ MonoBehaviour:
   resultCanvas: {fileID: 79591002}
   levelCanvas: {fileID: 1707245517}
   pauseCanvas: {fileID: 59149855}
+  preLevelCanvas: {fileID: 1421772185}
   ARSessionOrigin: {fileID: 912129842}
   scoreText: {fileID: 1853458408}
   statusText: {fileID: 930946374}
+  nextLevelName: Level2
 --- !u!4 &1281817070
 Transform:
   m_ObjectHideFlags: 0
@@ -3762,7 +3762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1421772186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4291,7 +4291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1707245518
 MonoBehaviour:
   m_ObjectHideFlags: 0

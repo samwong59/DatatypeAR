@@ -39,6 +39,9 @@ public class ARPlaceBeach : MonoBehaviour
     private TMP_Text scoreText;
     public int score = 0;
 
+    [SerializeField]
+    private string valuesFilePath;
+
     public class Value
     {
         string dataType;
@@ -141,7 +144,7 @@ public class ARPlaceBeach : MonoBehaviour
         goldBarScript = placedGoldBar.GetComponent<DragBar>();
         
         // Set values for level
-        goldBarScript.InitialValue("ChestLevelValues/Level1Values");
+        goldBarScript.InitialValue(valuesFilePath);
 
         placedCross = Instantiate(crossPrefab);
         placedCross.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.2f, placedLevel.transform.position.z + 0.225f);
