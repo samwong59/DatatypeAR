@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7015383167762723702}
   - component: {fileID: 7015383167762723697}
   m_Layer: 0
-  m_Name: Beach
+  m_Name: StringIntegerFloatChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

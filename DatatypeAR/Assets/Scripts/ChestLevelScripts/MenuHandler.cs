@@ -33,7 +33,9 @@ public class MenuHandler : MonoBehaviour
     private FirebaseFirestore fStore;
     private bool isNextLevelUnlocked;
     private int score;
-    Dictionary<string, object> levelData;
+    private Dictionary<string, object> levelData;
+    [SerializeField]
+    private int passingScore;
 
     void Start()
     {
@@ -66,9 +68,9 @@ public class MenuHandler : MonoBehaviour
     private IEnumerator FinishLevelLogic()
     {
         levelCanvas.SetActive(false);
-        score = ARSessionOrigin.GetComponent<ARPlaceBeach>().score;
+        score = ARSessionOrigin.GetComponent<ChestLevel>().score;
         scoreText.text = "You scored " + score.ToString() + " points";
-        ARSessionOrigin.GetComponent<ARPlaceBeach>().enabled = false;
+        ARSessionOrigin.GetComponent<ChestLevel>().enabled = false;
 
         yield return new WaitForSeconds(1);
         
@@ -81,14 +83,14 @@ public class MenuHandler : MonoBehaviour
     {
         if (!isNextLevelUnlocked)
         {
-            if (score > 15)
+            if (score > passingScore - 1)
             {
                 isNextLevelUnlocked = true;
                 statusText.text = "Congrats, you unlocked the next level";
                 updateUserLevelData();
             } else
             {
-                statusText.text = "You need to score at least 15 to move on to the next level, try again";
+                statusText.text = "You need to score at least" + passingScore.ToString() +  "to move on to the next level, try again";
             }
         }
     }

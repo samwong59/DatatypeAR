@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System;
 
-public class DragBar : MonoBehaviour
+public class BarValueHandler : MonoBehaviour
 {
     [SerializeField]
     TMP_Text goldBarText;
@@ -50,6 +50,7 @@ public class DragBar : MonoBehaviour
         foreach (string line in assetTextLines)
         {
             string[] split = line.Trim().Split(',');
+            Debug.Log(split[0] + " / " + split[1]);
             Value value = new Value(split[0], split[1]);
             availableValues.Add(value);
         }
