@@ -83,7 +83,7 @@ public class MenuHandler : MonoBehaviour
     {
         if (!isNextLevelUnlocked)
         {
-            if (score > passingScore - 1)
+            if (score >= passingScore)
             {
                 isNextLevelUnlocked = true;
                 statusText.text = "Congrats, you unlocked the next level";

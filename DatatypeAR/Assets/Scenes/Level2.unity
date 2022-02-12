@@ -2277,12 +2277,16 @@ MonoBehaviour:
   barPrefab: {fileID: 1594879466734162, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
   tickPrefab: {fileID: 2054716292682023891, guid: 967b008d646427442a176cb2cd74cf52, type: 3}
   crossPrefab: {fileID: 7407415457716347175, guid: bc0c71be61179544dab516548f174cce, type: 3}
+  returnValuePrefab: {fileID: 5174244073618538282, guid: b432720cc65a8dd4fabc2f60dc432685, type: 3}
+  questionPrefab: {fileID: 5174244073618538282, guid: 6543967bb17d8ed4f8d97163a43142ea, type: 3}
   preLevelCanvas: {fileID: 1421772185}
   levelCanvas: {fileID: 1707245517}
   pauseMenu: {fileID: 59149855}
   scoreText: {fileID: 1284152339}
+  menuHandlerObject: {fileID: 1281817068}
   score: 0
-  valuesFilePath: ChestLevelValues/Level1Values
+  isTimerLevel: 0
+  valuesFilePath: ChestLevelValues/Level2Values
 --- !u!114 &912129849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3213,7 +3217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1255619989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3432,8 +3436,8 @@ MonoBehaviour:
   ARSessionOrigin: {fileID: 912129842}
   scoreText: {fileID: 1853458408}
   statusText: {fileID: 930946374}
-  nextLevelName: Level2
-  passingScore: 0
+  nextLevelName: Level3
+  passingScore: 30
 --- !u!4 &1281817070
 Transform:
   m_ObjectHideFlags: 0
@@ -3505,7 +3509,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/20
+  m_text: 0/40
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 371ddb4ed355fa241af20f76021c1136, type: 2}
   m_sharedMaterial: {fileID: 4084727507670667394, guid: 371ddb4ed355fa241af20f76021c1136, type: 2}
@@ -4129,7 +4133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1707245518
 MonoBehaviour:
   m_ObjectHideFlags: 0

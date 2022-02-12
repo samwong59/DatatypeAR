@@ -12,12 +12,10 @@ public class CountdownTimer : MonoBehaviour
     private TMP_Text countdownText;
     [SerializeField]
     GameObject menuHandlerObject;
-    MenuHandler menuHandler;
 
     private void Start()
     {
         currentTime = startingTime;
-        menuHandler = menuHandlerObject.GetComponent<MenuHandler>();
     }
 
     private void Update()
@@ -28,7 +26,7 @@ public class CountdownTimer : MonoBehaviour
         if(currentTime <= 0)
         {
             currentTime = 0;
-            menuHandler.FinishLevel();
+            menuHandlerObject.GetComponent<MenuHandler>().FinishLevel();
         }
     }
 

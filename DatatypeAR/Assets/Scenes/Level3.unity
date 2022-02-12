@@ -2432,6 +2432,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 59149855}
   scoreText: {fileID: 1284152339}
   score: 0
+  isTimerLevel: 1
   valuesFilePath: ChestLevelValues/Level3Values
 --- !u!114 &912129849
 MonoBehaviour:
