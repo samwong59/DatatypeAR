@@ -1,2 +1,47 @@
-True,true
-False,false
+x=False y=True<br> x or y,true@
+x=10<br> x > 5 and x < 10,false@
+"boat" == "BOAT" and 3 < 5,false@
+"Plane".lower().islower(),true@
+x=14<br>x > 10 or x < 3,true@
+x=True y=True<br> x and y,true@
+len("hello") <= 25/5,true@
+not("plane" == "BOAT") or 3 < 5,true@
+"boat".upper().islower(),false@
+x=5<br>x < 2 or x < 3,false@
+x=3<br>x*x-x == x,true@
+len("hello")+len("10") == 15,false@
+"boat".upper() == "BOAT" and 3 < 5,true@
+x=False y=False<br> x and y,false@
+len("hello")+10 == 15,true@
+x=5<br>x > 3 and x < 10,true@
+"BOAT".lower().count("A") == 1,false@
+x=False y=False<br> not(x and y),true@
+len("hello")-2 > 3,true@
+10 < 10 or True and 20 > 10,true@
+x="race" y = "car"<br>x+y == "racecar",true@
+x=2<br>x + x == x*x,true@
+x=5<br>not(x < 2 or x < 3),false@
+"plane".isupper() and 1 < 2,false@
+x=True y = True<br> x or y,true@
+x="5" y = 5<br>x == y,false@
+not("plane" in "racecar"),true@
+x="bee".count("e")<br>x <= 5,true@
+x=10 y=10<br>x != y,false@
+20.2 < 21.3 < 22.4 < 23.5,true@
+x=False y = True<br> x and y,false@
+"py" in "Python",false@
+x=3*"b"<br>x in "aabbaabbaa",false@
+not("lan" in "plane"),false@
+"ytho" in "Python",true@
+10.0 == 10,true@
+"hello".islower() or "programming".isupper(),true@
+x=3<br>x*x / x == x,true@
+x=25.0 y=float(x)<br>x == y,false@
+x=2*"b"<br>x in "aabbaabbaa",true@
+x="race" y="car"<br>y+x == "racecar",false@
+"ball" in football and "1" in "123",true@
+x=4<br>x*x-x == 3*x,true@
+x="programming"<br>x.count("m")*5 <= len(x),false@
+x="gold"<br>x in "silver",false@
+"aaa" in "ababab".count("a")*"a",true@
+"Programming".isupper(),false

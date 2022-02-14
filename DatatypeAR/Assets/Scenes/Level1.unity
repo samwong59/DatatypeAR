@@ -2427,10 +2427,13 @@ MonoBehaviour:
   barPrefab: {fileID: 1594879466734162, guid: c82411508e9628b4e9f629bf2800542f, type: 3}
   tickPrefab: {fileID: 2054716292682023891, guid: 967b008d646427442a176cb2cd74cf52, type: 3}
   crossPrefab: {fileID: 7407415457716347175, guid: bc0c71be61179544dab516548f174cce, type: 3}
+  returnValuePrefab: {fileID: 0}
+  questionPrefab: {fileID: 0}
   preLevelCanvas: {fileID: 1421772185}
   levelCanvas: {fileID: 1707245517}
   pauseMenu: {fileID: 59149855}
   scoreText: {fileID: 1284152339}
+  menuHandlerObject: {fileID: 0}
   score: 0
   isTimerLevel: 1
   valuesFilePath: ChestLevelValues/Level1Values
@@ -3584,7 +3587,7 @@ MonoBehaviour:
   scoreText: {fileID: 1853458408}
   statusText: {fileID: 930946374}
   nextLevelName: Level2
-  passingScore: 15
+  passingScore: 18
 --- !u!4 &1281817070
 Transform:
   m_ObjectHideFlags: 0

@@ -65,11 +65,13 @@ public class BarValueHandler : MonoBehaviour
     {
         TextAsset asset = Resources.Load<TextAsset>(level);
         string assetText = asset.ToString();
-        string[] assetTextLines = Regex.Split(assetText, Environment.NewLine);
+        string[] assetTextLines = Regex.Split(assetText, "@");
+        Debug.LogWarning("Creates String Array");
         foreach (string line in assetTextLines)
         {
             string[] split = line.Trim().Split(',');
-            Value value = new Value(split[0], split[1]);
+            Debug.LogWarning(split);
+            Value value = new Value(split[0].Replace("<br>", "\n"), split[1]);
             availableValues.Add(value);
         }
     }
