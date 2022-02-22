@@ -53,6 +53,7 @@ public class IfStatementLevel : MonoBehaviour
         codeBlocks = codeCanvas.transform.GetChild(0).GetChild(1).gameObject;
         
     }
+
     private void Update()
     {
         if (preLevelCanvas.activeSelf || pauseMenu.activeSelf)
