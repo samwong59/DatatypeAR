@@ -1,6 +1,6 @@
 "Mississippi".count("si"),int,4,false,8,false,2,true
 "STR".lower(),str,"STR",false,"str",true,"Str",false
-3*"H".lower(),str,"HHH",true,"hhh",false,"3H3H3H",false
+3*"H".lower(),str,"HHH",false,"hhh",true,"3H3H3H",false
 float(int(1/5)),float,0,false,0.2,false,0.0,true
 len(str("holiday".count("a"))),int,1,true,7,false,"1",false
 len("35"),int,3,false,5,false,2,true

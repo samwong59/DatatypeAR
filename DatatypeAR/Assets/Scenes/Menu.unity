@@ -1773,7 +1773,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'String and Variables
+  m_text: 'Numbers and Strings
 
 '
   m_isRightToLeft: 0
@@ -4160,7 +4160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Booleans - String methods
+  m_text: 'Conditionals
 
 '
   m_isRightToLeft: 0
@@ -10707,7 +10707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Booleans
+  m_text: 'Boolean Expressions
 
 '
   m_isRightToLeft: 0
@@ -10977,9 +10977,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Int and Float
-
-'
+  m_text: Number and String Methods
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98638b6ac5d799c45aef30831e65b19e, type: 2}
   m_sharedMaterial: {fileID: 4298091632129298221, guid: 98638b6ac5d799c45aef30831e65b19e, type: 2}

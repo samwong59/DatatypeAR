@@ -3,10 +3,11 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using TMPro;
 using System.Collections;
-using UnityEngine.UI;
 
 public class ChestLevel : MonoBehaviour
 {
+
+    //Prefabs to use
     [SerializeField]
     private GameObject levelPrefab;
     [SerializeField]
@@ -20,9 +21,7 @@ public class ChestLevel : MonoBehaviour
     [SerializeField]
     private GameObject questionPrefab;
 
-    private ARRaycastManager raycastManager;
-    private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
+    //Placed prefabs
     private GameObject placedLevel;
     private GameObject placedGoldBar;
     private GameObject placedCross;
@@ -30,11 +29,17 @@ public class ChestLevel : MonoBehaviour
     private GameObject placedQuestionText;
     private List<GameObject> placedReturnValues = new List<GameObject>();
 
-    private ARSessionOrigin mSessionOrigin;
+    //AR management
+    private ARRaycastManager mRaycastManager;
     private Vector2 touchPosition;
     private RaycastHit hitObject;
+    private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    private ARSessionOrigin mSessionOrigin;
+
+
     private TMP_Text goldBarText;
     private BarValueHandler goldBarScript;
+
     [SerializeField]
     private GameObject preLevelCanvas;
     [SerializeField]
@@ -45,6 +50,11 @@ public class ChestLevel : MonoBehaviour
     private TMP_Text scoreText;
     [SerializeField]
     GameObject menuHandlerObject;
+    [SerializeField]
+    GameObject objectivePanel;
+    [SerializeField]
+    TMP_Text objectiveText;
+
     public int score = 0;
     [SerializeField]
     private bool isTimerLevel;
@@ -57,17 +67,19 @@ public class ChestLevel : MonoBehaviour
 
     private void Awake()
     {
-        raycastManager = GetComponent<ARRaycastManager>();
+        mRaycastManager = GetComponent<ARRaycastManager>();
         mSessionOrigin = GetComponent<ARSessionOrigin>();
     }
 
     private void Update()
     {
+        //Check if level has started or is paused
         if (preLevelCanvas.activeSelf || pauseMenu.activeSelf)
         {
             return;
         }
 
+        //Check if level is waiting for next value 
         if (placedGoldBar != null)
         {
             if (!placedGoldBar.activeSelf && isTimerLevel)
@@ -88,7 +100,7 @@ public class ChestLevel : MonoBehaviour
         {
             if (placedLevel == null)
             {
-                if (raycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinBounds))
+                if (mRaycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinBounds))
                 {
                     CreateAnchor(hits[0]);
                     levelCanvas.SetActive(true);
@@ -107,14 +119,14 @@ public class ChestLevel : MonoBehaviour
                         if (Equals((currentValue.getDataType() + "Chest"), hitObject.transform.name))
                         {
                             hitObject.transform.gameObject.GetComponent<ChestAnimationHandler>().OpenChestAnimation();
-                            CorrectChestAnswer();
+                            StartCoroutine(HideGoldBar(true));
                         }
                         else
                         {
                             hitObject.transform.gameObject.GetComponent<ChestAnimationHandler>().ShakeChestAnimation();
-                            IncorrectChestAnswer();
+                            StartCoroutine(HideGoldBar(false));
                         }
-                }
+                    }
                 }
                 if (hitObject.transform.name == "3DText(Clone)")
                 {
@@ -130,17 +142,6 @@ public class ChestLevel : MonoBehaviour
             }
         }
     }
-
-    private void CorrectChestAnswer()
-    {
-            StartCoroutine(HideGoldBar(true));
-    }
-
-    private void IncorrectChestAnswer()
-    {
-            StartCoroutine(HideGoldBar(false));
-    }
-
 
     ARAnchor CreateAnchor(in ARRaycastHit hit)
     {
@@ -172,14 +173,12 @@ public class ChestLevel : MonoBehaviour
             placedQuestionText.GetComponent<ThreeDimensionalText>().ChangeText("What does " + currentValue.getValue() + " return?");
             GameObject placedText = Instantiate(returnValuePrefab);
             placedText.transform.position = new Vector3(placedLevel.transform.position.x + 0f, placedLevel.transform.position.y + 0.45f, placedLevel.transform.position.z + 0.225f);
-            placedText.transform.rotation = Quaternion.Euler(0,-15,0);
             placedReturnValues.Add(placedText);
             placedText = Instantiate(returnValuePrefab);
             placedText.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.6f, placedLevel.transform.position.z + 0.26f);
             placedReturnValues.Add(placedText);
             placedText = Instantiate(returnValuePrefab);
             placedText.transform.position = new Vector3(placedLevel.transform.position.x + 0.5f, placedLevel.transform.position.y + 0.45f, placedLevel.transform.position.z + 0.225f);
-            placedText.transform.rotation = Quaternion.Euler(0, 15, 0);
             placedReturnValues.Add(placedText);
             for (int i = 0; i <= 2; i++)
             {
@@ -190,6 +189,7 @@ public class ChestLevel : MonoBehaviour
 
         mSessionOrigin.MakeContentAppearAt(emptyGameObject.transform, hit.pose.position, hit.pose.rotation);
 
+        StartCoroutine(SetObjectiveText("Tap the chest which matches the type of the code on the gold bar"));
 
         anchor = emptyGameObject.GetComponent<ARAnchor>();
         if (anchor == null)
@@ -200,11 +200,11 @@ public class ChestLevel : MonoBehaviour
         return anchor;
     }
 
-    IEnumerator HideGoldBar(bool correctAnswer)
+    IEnumerator HideGoldBar(bool isCorrect)
     {
         placedGoldBar.SetActive(false);
 
-        if (correctAnswer)
+        if (isCorrect)
         {
             SoundManagerScript.PlaySound("correct");
             placedTick.SetActive(true);
@@ -222,6 +222,13 @@ public class ChestLevel : MonoBehaviour
         if (!isTimerLevel)
         {
             questionNumber++;
+
+
+            if (questionNumber == 2)
+            {
+                StartCoroutine(SetObjectiveText("What is the value returned by the code?"));
+            }
+
             scoreText.text = score + "/40";
             placedQuestionText.SetActive(true);
             foreach (GameObject returnValue in placedReturnValues)
@@ -239,6 +246,7 @@ public class ChestLevel : MonoBehaviour
 
     IEnumerator HideReturnValues(bool correctAnswer)
     {
+
         questionNumber++;
         placedQuestionText.SetActive(false);
         foreach (GameObject returnValue in placedReturnValues)
@@ -263,7 +271,7 @@ public class ChestLevel : MonoBehaviour
 
         if (questionNumber == 41)
         {
-            menuHandlerObject.GetComponent<MenuHandler>().FinishLevel();
+            menuHandlerObject.GetComponent<ChestLevelMenuHandler>().FinishLevel();
         }
 
         placedTick.SetActive(false);
@@ -277,4 +285,15 @@ public class ChestLevel : MonoBehaviour
         }
         placedGoldBar.SetActive(true);
     }
+
+    private IEnumerator SetObjectiveText(string objective)
+    {
+        objectivePanel.SetActive(true);
+        objectiveText.text = objective;
+
+        yield return new WaitForSeconds(3);
+
+        objectivePanel.SetActive(false);
+    }
+
 }

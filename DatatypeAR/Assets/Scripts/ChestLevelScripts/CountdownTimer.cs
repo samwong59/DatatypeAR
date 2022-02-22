@@ -26,7 +26,7 @@ public class CountdownTimer : MonoBehaviour
         if(currentTime <= 0)
         {
             currentTime = 0;
-            menuHandlerObject.GetComponent<MenuHandler>().FinishLevel();
+            menuHandlerObject.GetComponent<ChestLevelMenuHandler>().FinishLevel();
         }
     }
 
