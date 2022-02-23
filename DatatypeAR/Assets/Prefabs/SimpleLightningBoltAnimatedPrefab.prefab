@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 430986}
   - component: {fileID: 12080208}
-  - component: {fileID: 11413728}
+  - component: {fileID: 4347795829424256890}
   m_Layer: 0
   m_Name: SimpleLightningBoltAnimatedPrefab
   m_TagString: Untagged
@@ -142,7 +142,7 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.20000076
+        time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -152,7 +152,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 0.559639
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -199,7 +199,7 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &11413728
+--- !u!114 &4347795829424256890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,17 +208,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 178460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfb4d413de9f1d541915329635c9f2bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 0027b581486c3f34e85100211f2cd9d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartObject: {fileID: 156244}
-  StartPosition: {x: 0, y: 1, z: -10}
-  EndObject: {fileID: 103226}
-  EndPosition: {x: 0, y: 0, z: 10}
-  Generations: 3
-  Duration: 0.03
-  ChaosFactor: 0.15
+  StartObject: {fileID: 0}
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndObject: {fileID: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
+  Generations: 5
+  Duration: 0.05
+  ChaosFactor: 0.001
   ManualMode: 0
-  Rows: 8
+  Rows: 1
   Columns: 1
   AnimationMode: 3

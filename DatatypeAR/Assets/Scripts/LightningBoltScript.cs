@@ -1,10 +1,3 @@
-﻿//
-// Lightning Bolt for Unity
-// (c) 2016 Digital Ruby, LLC
-// Source code may be used for personal or commercial projects.
-// Source code may NOT be redistributed or sold.
-// 
-
 using UnityEngine;
 using System.Collections.Generic;
 
