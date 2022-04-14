@@ -51,7 +51,6 @@ public class IfStatementLevel : MonoBehaviour
         mRaycastManager = GetComponent<ARRaycastManager>();
         mSessionOrigin = GetComponent<ARSessionOrigin>();
         codeBlocks = codeCanvas.transform.GetChild(0).GetChild(1).gameObject;
-        
     }
 
     private void Update()
@@ -195,7 +194,7 @@ public class IfStatementLevel : MonoBehaviour
                 objectiveText.text = "What value does it print now?";
                 break;
             case 9:
-                menuHandlerObject.GetComponent<IfStatementWalkthroughMenuHandler>().FinishLevel();
+                menuHandlerObject.GetComponent<IfStatementWalthroughMenuHandler>().FinishLevel();
                 break;
         }
     }
