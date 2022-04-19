@@ -8,7 +8,9 @@ using TMPro;
 public class ListLevel : MonoBehaviour
 {
     [SerializeField]
-    private GameObject wordPrefab;
+    private GameObject elementPrefab;
+    [SerializeField]
+    private GameObject elementInChestPrefab;
     [SerializeField]
     private GameObject chestPrefab;
 
@@ -55,6 +57,8 @@ public class ListLevel : MonoBehaviour
     private GameObject chest2;
 
     private int correctAnswers = 0;
+
+    private List<GameObject> textsInChest = new List<GameObject>();
 
     protected class Element
     {
@@ -149,10 +153,16 @@ public class ListLevel : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(targetRay, out hit, 20f))
                 {
-                    if (hit.transform.name == ("3DTextEnvironment(Clone)"))
+                    if (hit.transform.name == "3DTextEnvironment(Clone)")
                     {
                         hit.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().ShowHighlight();
                         selectedWord = hit.transform.gameObject;
+                        chest1.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
+                        chest2.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
+                    }
+                    else if (hit.transform.name == "Chest")
+                    {
+                        hit.transform.gameObject.GetComponent<ChestAnimationHandler>().OpenChest();
                     }
                 }
                 else
@@ -162,6 +172,8 @@ public class ListLevel : MonoBehaviour
                     {
                         text.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().HideHighlight();
                     }
+                    chest1.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
+                    chest2.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
                 }
                 break;
 
@@ -174,7 +186,7 @@ public class ListLevel : MonoBehaviour
         switch(stage)
         {
             case 1:
-                GameObject text = Instantiate(wordPrefab);
+                GameObject text = Instantiate(elementPrefab);
                 Element element = elements[texts.Count];
                 text.GetComponent<ThreeDimensionalText>().ChangeText(element.GetValue());
                 text.transform.position = hit.pose.position;
@@ -191,10 +203,32 @@ public class ListLevel : MonoBehaviour
             case 2:
                 GameObject emptyGameObject = Instantiate(new GameObject("EmptyGameObject"));
 
-                chest1 = Instantiate(chestPrefab, new Vector3(emptyGameObject.transform.position.x - 0.2f,
+                chest1 = Instantiate(chestPrefab, new Vector3(emptyGameObject.transform.position.x - 0.225f,
                     emptyGameObject.transform.position.y, emptyGameObject.transform.position.z), emptyGameObject.transform.rotation);
-                chest2 = Instantiate(chestPrefab, new Vector3(emptyGameObject.transform.position.x + 0.2f,
+                chest2 = Instantiate(chestPrefab, new Vector3(emptyGameObject.transform.position.x + 0.225f,
                     emptyGameObject.transform.position.y, emptyGameObject.transform.position.z), emptyGameObject.transform.rotation);
+
+                foreach(Element e in elements)
+                {
+                    if (e.GetCorrectList() == 1)
+                    {
+                        GameObject t = Instantiate(elementInChestPrefab);
+                        t.GetComponent<ThreeDimensionalText>().ChangeText(e.GetValue());
+                        t.transform.position = new Vector3(chest1.transform.position.x, chest1.transform.position.y + 0.2f,
+                            chest1.transform.position.z + (0.1f - (elements.IndexOf(e) * 0.025f)));
+                        textsInChest.Add(t);
+                        t.SetActive(false);
+                    } 
+                    else
+                    {
+                        GameObject t = Instantiate(elementInChestPrefab);
+                        t.GetComponent<ThreeDimensionalText>().ChangeText(e.GetValue());
+                        t.transform.position = new Vector3(chest2.transform.position.x, chest2.transform.position.y + 0.2f,
+                            chest2.transform.position.z + (0.1f - (elements.IndexOf(e) * 0.025f)));
+                        textsInChest.Add(t);
+                        t.SetActive(false);
+                    }
+                }
 
                 mSessionOrigin.MakeContentAppearAt(emptyGameObject.transform, hit.pose.position, hit.pose.rotation);
 
@@ -214,7 +248,8 @@ public class ListLevel : MonoBehaviour
         {
             if (listNo == selectedWord.GetComponent<ThreeDimensionalTextEnvironment>().correctList)
             {
-                Destroy(selectedWord);
+                textsInChest[texts.IndexOf(selectedWord)].SetActive(true); ;
+                selectedWord.SetActive(false);
                 correctAnswers++;
             } 
             else
@@ -226,6 +261,16 @@ public class ListLevel : MonoBehaviour
         {
             //TODO notify user they must be targeting an element!
         }
+        if (correctAnswers == 10)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Destroy(texts[i]);
+                Destroy(textsInChest[i]);
+            }
+            Destroy(chest1);
+            Destroy(chest2);
+            stage = 4;
+        }
     }
-
 }

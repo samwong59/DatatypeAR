@@ -2767,7 +2767,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8894d134ed5fca8478c40ae4dbbbec2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wordPrefab: {fileID: 5174244073618538282, guid: dafaed6b6378bb64eaddbb038979fe86, type: 3}
+  elementPrefab: {fileID: 5174244073618538282, guid: dafaed6b6378bb64eaddbb038979fe86, type: 3}
+  elementInChestPrefab: {fileID: 5174244073618538282, guid: cfe00d0d447a3a142b4ac24c187f664b, type: 3}
   chestPrefab: {fileID: 1632052825836748, guid: 08e19ec03e3b3134ca65ae3c844ec389, type: 3}
   preLevelCanvas: {fileID: 1421772185}
   pauseMenu: {fileID: 59149855}

@@ -118,7 +118,7 @@ public class ChestLevel : MonoBehaviour
                     {
                         if (Equals((currentValue.GetDataType() + "Chest"), hitObject.transform.name))
                         {
-                            hitObject.transform.gameObject.GetComponent<ChestAnimationHandler>().OpenChestAnimation();
+                            hitObject.transform.gameObject.GetComponent<ChestAnimationHandler>().OpenAndCloseChestAnimation();
                             StartCoroutine(HideGoldBar(true));
                         }
                         else

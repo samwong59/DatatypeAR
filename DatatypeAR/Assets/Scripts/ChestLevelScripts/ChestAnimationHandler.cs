@@ -9,7 +9,7 @@ public class ChestAnimationHandler : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
     }
 
-    public void OpenChestAnimation()
+    public void OpenAndCloseChestAnimation()
     {
         animator.ResetTrigger("Open");
         animator.ResetTrigger("Shake");
@@ -21,5 +21,15 @@ public class ChestAnimationHandler : MonoBehaviour
         animator.ResetTrigger("Shake");
         animator.ResetTrigger("Open");
         animator.SetTrigger("Shake");
+    }
+
+    public void OpenChest()
+    {
+        animator.SetBool("isOpen", true);
+    }
+
+    public void CloseChest()
+    {
+        animator.SetBool("isOpen", false);
     }
 }
