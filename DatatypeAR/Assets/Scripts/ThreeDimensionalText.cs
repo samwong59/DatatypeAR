@@ -9,8 +9,6 @@ public class ThreeDimensionalText : MonoBehaviour
 
     TMP_Text[] textChildren;
 
-
-
     public void ChangeText(string newText)
     {
         if (textChildren == null)

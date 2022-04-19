@@ -25,22 +25,22 @@ public class BarValueHandler : MonoBehaviour
             this.dataType = datatype;
         }
 
-        public string getValue()
+        public string GetValue()
         {
             return value;
         }
 
-        public string getDataType()
+        public string GetDataType()
         {
             return dataType;
         }
 
-        public Value[] getReturnValues()
+        public Value[] GetReturnValues()
         {
             return returnValues;
         }
 
-        public void setReturnValues(Value[] returnValues)
+        public void SetReturnValues(Value[] returnValues)
         {
             this.returnValues = returnValues;
         }
@@ -92,7 +92,7 @@ public class BarValueHandler : MonoBehaviour
             returnValues[1] = returnValue2;
             Value returnValue3 = new Value(split[6], split[7]);
             returnValues[2] = returnValue3;
-            value.setReturnValues(returnValues);
+            value.SetReturnValues(returnValues);
             availableValues.Add(value);
         }
     }
@@ -106,7 +106,7 @@ public class BarValueHandler : MonoBehaviour
         }
         int index = random.Next(availableValues.Count);
         currentValue = availableValues[index];
-        goldBarText.text = currentValue.getValue();
+        goldBarText.text = currentValue.GetValue();
         Debug.Log("Current Value: " + currentValue);
     }
 

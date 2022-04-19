@@ -3238,6 +3238,8 @@ MonoBehaviour:
   menuHandlerObject: {fileID: 1281817068}
   objectivePanel: {fileID: 960218284}
   objectiveText: {fileID: 64915266}
+  prelevelCanvas: {fileID: 1421772185}
+  pauseMenu: {fileID: 59149855}
   heart1: {fileID: 1600913429}
   heart2: {fileID: 818677669}
   heart3: {fileID: 1211754645}

@@ -116,7 +116,7 @@ public class ChestLevel : MonoBehaviour
                 {
                     if (hitObject.transform.name == "intChest" || hitObject.transform.name == "floatChest" || hitObject.transform.name == "strChest" || hitObject.transform.name == "falseChest" || hitObject.transform.name == "trueChest")
                     {
-                        if (Equals((currentValue.getDataType() + "Chest"), hitObject.transform.name))
+                        if (Equals((currentValue.GetDataType() + "Chest"), hitObject.transform.name))
                         {
                             hitObject.transform.gameObject.GetComponent<ChestAnimationHandler>().OpenChestAnimation();
                             StartCoroutine(HideGoldBar(true));
@@ -131,7 +131,7 @@ public class ChestLevel : MonoBehaviour
                 if (hitObject.transform.name == "3DText(Clone)")
                 {
                     Debug.LogWarning(" Index = " + placedReturnValues.IndexOf(hitObject.transform.gameObject));
-                    if (Equals(currentValue.getReturnValues()[placedReturnValues.IndexOf(hitObject.transform.gameObject)].getDataType(), "true"))
+                    if (Equals(currentValue.GetReturnValues()[placedReturnValues.IndexOf(hitObject.transform.gameObject)].GetDataType(), "true"))
                     {
                         StartCoroutine(HideReturnValues(true));
                     } else
@@ -170,7 +170,7 @@ public class ChestLevel : MonoBehaviour
             placedQuestionText = Instantiate(questionPrefab);
             placedQuestionText.transform.position = new Vector3(placedLevel.transform.position.x + 0.225f, placedLevel.transform.position.y + 0.25f, placedLevel.transform.position.z + 0.225f);
             placedQuestionText.SetActive(false);
-            placedQuestionText.GetComponent<ThreeDimensionalText>().ChangeText("What does " + currentValue.getValue() + " return?");
+            placedQuestionText.GetComponent<ThreeDimensionalText>().ChangeText("What does " + currentValue.GetValue() + " return?");
             GameObject placedText = Instantiate(returnValuePrefab);
             placedText.transform.position = new Vector3(placedLevel.transform.position.x + 0f, placedLevel.transform.position.y + 0.45f, placedLevel.transform.position.z + 0.225f);
             placedReturnValues.Add(placedText);
@@ -182,7 +182,7 @@ public class ChestLevel : MonoBehaviour
             placedReturnValues.Add(placedText);
             for (int i = 0; i <= 2; i++)
             {
-                placedReturnValues[i].GetComponent<ThreeDimensionalText>().ChangeText(currentValue.getReturnValues()[i].getValue());
+                placedReturnValues[i].GetComponent<ThreeDimensionalText>().ChangeText(currentValue.GetReturnValues()[i].GetValue());
                 placedReturnValues[i].SetActive(false);
             }
         }
@@ -278,10 +278,10 @@ public class ChestLevel : MonoBehaviour
         placedCross.SetActive(false);
         goldBarScript.SelectNewValue();
         currentValue = goldBarScript.currentValue;
-        placedQuestionText.GetComponent<ThreeDimensionalText>().ChangeText("What does " + currentValue.getValue() + " return?");
+        placedQuestionText.GetComponent<ThreeDimensionalText>().ChangeText("What does " + currentValue.GetValue() + " return?");
         for (int i = 0; i <= 2; i++)
         {
-            placedReturnValues[i].GetComponent<ThreeDimensionalText>().ChangeText(currentValue.getReturnValues()[i].getValue());
+            placedReturnValues[i].GetComponent<ThreeDimensionalText>().ChangeText(currentValue.GetReturnValues()[i].GetValue());
         }
         placedGoldBar.SetActive(true);
     }

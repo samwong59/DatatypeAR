@@ -1,48 +1,32 @@
-using UnityEngine.XR.ARFoundation;
+using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.ARFoundation;
 public class PointCloudInfo : MonoBehaviour
 {
-    private ARPointCloud pointCloud;
-
-    public UnityEngine.UI.Text Log;
-
+    public ARPointCloudManager pointCloudManager;
+    public List<ARPoint> points = new List<ARPoint>();
     private void OnEnable()
     {
-        pointCloud = GetComponent<ARPointCloud>();
-        pointCloud.updated += OnPointCloudChanged;
+        pointCloudManager.pointCloudsChanged += PointCloudManager_pointCloudsChanged;
     }
-
-    private void OnDisable()
+    private void PointCloudManager_pointCloudsChanged(ARPointCloudChangedEventArgs obj)
     {
-        pointCloud.updated -= OnPointCloudChanged;
-    }
-
-    private void OnPointCloudChanged(ARPointCloudUpdatedEventArgs eventArgs)
-    {
-        if (!pointCloud.positions.HasValue ||
-            !pointCloud.identifiers.HasValue ||
-            !pointCloud.confidenceValues.HasValue)
-            return;
-
-        var positions = pointCloud.positions.Value;
-        var identifiers = pointCloud.identifiers.Value;
-        var confidence = pointCloud.confidenceValues.Value;
-
-        if (positions.Length == 0) return;
-
-        var logText = "Number of points: " + positions.Length + "\nPoint info: x = "
-            + positions[0].x + ", y = " + positions[0].y + ", z = " + positions[0].z
-            + ",\n Identifier = " + identifiers[0] + ", Confidence = " + confidence[0];
-
-        if (Log)
+        foreach (var pointCloud in obj.added)
         {
-            Log.text = logText;
-        }
-        else
-        {
-            Debug.Log(logText);
+            foreach (var pos in pointCloud.positions)
+            {
+                ARPoint newPoint = new ARPoint(pos);
+                points.Add(newPoint);
+                Debug.Log("New point added at" + pos);
+            }
         }
     }
-
+}
+public class ARPoint
+{
+    public Vector3 position;
+    public ARPoint(Vector3 pos)
+    {
+        position = pos;
+    }
 }

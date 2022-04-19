@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using TMPro;
+using UnityEngine.XR.ARSubsystems;
 
 public class IfStatementRPGLevel : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class IfStatementRPGLevel : MonoBehaviour
     private string stage1Code;
     private string stage2Code;
 
-    private ARRaycastManager mRaycastManager;
+    private ARRaycastManager raycastManager;
     private static readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private ARSessionOrigin mSessionOrigin;
 
@@ -58,6 +59,10 @@ public class IfStatementRPGLevel : MonoBehaviour
     private GameObject objectivePanel;
     [SerializeField]
     private TMP_Text objectiveText;
+    [SerializeField]
+    private GameObject prelevelCanvas;
+    [SerializeField]
+    private GameObject pauseMenu;
 
     private int health = 3;
     [SerializeField]
@@ -84,7 +89,7 @@ public class IfStatementRPGLevel : MonoBehaviour
     private void Awake()
     {
         firstPersonCamera = GameObject.Find("AR Camera").GetComponent<Camera>();
-        mRaycastManager = GetComponent<ARRaycastManager>();
+        raycastManager = GetComponent<ARRaycastManager>();
         mSessionOrigin = GetComponent<ARSessionOrigin>();
 
         stage1Monsters.Add(slimePrefab);
@@ -103,6 +108,11 @@ public class IfStatementRPGLevel : MonoBehaviour
 
     private void Update()
     {
+        if (prelevelCanvas.activeSelf || pauseMenu.activeSelf)
+        {
+            return;
+        }
+
         RaycastHit hit;
         Ray targetRay = new Ray(firstPersonCamera.transform.position, firstPersonCamera.transform.forward);
 
@@ -130,15 +140,12 @@ public class IfStatementRPGLevel : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                if (emptyGameObject == null)
+                if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinBounds))
                 {
-                    if (mRaycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinBounds))
-                    {
-                        CreateAnchor(hits[0]);
-                        levelCanvas.SetActive(true);
-                        codeCanvas.SetActive(true);
-                        StartCoroutine(ObjectiveUpdate("Read the code and select the correct attack based on it!", 6));
-                    }
+                    CreateAnchor(hits[0]);
+                    levelCanvas.SetActive(true);
+                    codeCanvas.SetActive(true);
+                    StartCoroutine(ObjectiveUpdate("Read the code and select the correct attack based on it!", 6));
                 }
             }
         }
