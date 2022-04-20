@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 86832271}
   - component: {fileID: 86832270}
   m_Layer: 5
-  m_Name: List1
+  m_Name: List1Append
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,8 +359,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 126, y: 0}
-  m_SizeDelta: {x: 246, y: 95}
+  m_AnchoredPosition: {x: 176, y: 0}
+  m_SizeDelta: {x: 346, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &86832270
 MonoBehaviour:
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 206768104}
   - component: {fileID: 206768103}
   m_Layer: 5
-  m_Name: ListPanel
+  m_Name: AppendPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -706,7 +706,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 500, y: 100}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &206768103
 MonoBehaviour:
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'List1
+  m_text: 'Fruits.append()
 
 '
   m_isRightToLeft: 0
@@ -1649,7 +1649,7 @@ GameObject:
   - component: {fileID: 439630585}
   - component: {fileID: 439630584}
   m_Layer: 5
-  m_Name: List2
+  m_Name: List2Append
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1672,8 +1672,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -126, y: 0}
-  m_SizeDelta: {x: 246, y: 95}
+  m_AnchoredPosition: {x: -176, y: 0}
+  m_SizeDelta: {x: 346, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &439630584
 MonoBehaviour:
@@ -2769,6 +2769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elementPrefab: {fileID: 5174244073618538282, guid: dafaed6b6378bb64eaddbb038979fe86, type: 3}
   elementInChestPrefab: {fileID: 5174244073618538282, guid: cfe00d0d447a3a142b4ac24c187f664b, type: 3}
+  elementInStackPrefab: {fileID: 5174244073618538282, guid: f46c9d322b3c5e04eb7a1a3f74966e6d, type: 3}
   chestPrefab: {fileID: 1632052825836748, guid: 08e19ec03e3b3134ca65ae3c844ec389, type: 3}
   preLevelCanvas: {fileID: 1421772185}
   pauseMenu: {fileID: 59149855}
@@ -5499,7 +5500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: List2
+  m_text: Vegetables.append()
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 371ddb4ed355fa241af20f76021c1136, type: 2}
   m_sharedMaterial: {fileID: 4084727507670667394, guid: 371ddb4ed355fa241af20f76021c1136, type: 2}

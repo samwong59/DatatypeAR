@@ -1539,7 +1539,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 1281817071}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: PlayNextLevel
         m_Mode: 1
@@ -1961,7 +1961,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 1281817071}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: QuitLevel
         m_Mode: 1
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 1281817071}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: RestartLevel
         m_Mode: 1
@@ -3231,7 +3231,6 @@ MonoBehaviour:
   fireballPrefab: {fileID: 100004, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
   lightningPrefab: {fileID: 100002, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
   explosionPrefab: {fileID: 100010, guid: 4d0391f078db24fac9f5cba3075f9f5d, type: 3}
-  dungeonPrefab: {fileID: 3010355514757382582, guid: dcb44893a4a0638449b70108459f93c0, type: 3}
   levelCanvas: {fileID: 1395245205}
   codeCanvas: {fileID: 1826354108}
   code: {fileID: 1707916397}
@@ -3916,7 +3915,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -4791,7 +4790,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -5125,7 +5124,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1281817070}
-  - component: {fileID: 1281817069}
   - component: {fileID: 1281817071}
   m_Layer: 0
   m_Name: MenuHandler
@@ -5134,27 +5132,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1281817069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281817068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e023ec4e9d159224e97056019315e500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resultCanvas: {fileID: 79591002}
-  levelCanvas: {fileID: 1395245205}
-  pauseCanvas: {fileID: 59149855}
-  preLevelCanvas: {fileID: 1421772185}
-  ARSessionOrigin: {fileID: 912129842}
-  scoreText: {fileID: 0}
-  statusText: {fileID: 930946374}
-  nextLevelName: Level5
-  codeCanvas: {fileID: 1826354108}
 --- !u!4 &1281817070
 Transform:
   m_ObjectHideFlags: 0
@@ -5561,7 +5538,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: RestartLevel
         m_Mode: 1
@@ -6331,7 +6308,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281817069}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
         m_MethodName: QuitLevel
         m_Mode: 1

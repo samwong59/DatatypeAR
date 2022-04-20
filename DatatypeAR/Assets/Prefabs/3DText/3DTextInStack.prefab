@@ -4048,7 +4048,7 @@ GameObject:
   - component: {fileID: 1431299363842063758}
   - component: {fileID: 1942236120597603069}
   m_Layer: 0
-  m_Name: 3DTextInChest
+  m_Name: 3DTextInStack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4063,7 +4063,7 @@ Transform:
   m_GameObject: {fileID: 5174244073618538282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5950142838018391849}
   - {fileID: 7233439947969331326}
@@ -4095,7 +4095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771039eab3b09e3419a6460722912d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yRotation: 0
+  yRotation: 1
 --- !u!114 &1942236120597603069
 MonoBehaviour:
   m_ObjectHideFlags: 0
