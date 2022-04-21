@@ -23,9 +23,13 @@ public class ListLevel : MonoBehaviour
     [SerializeField]
     private GameObject levelCanvas;
     [SerializeField]
-    private GameObject objectivePanel;
+    private GameObject functionPanel;
+    [SerializeField]
+    private GameObject appendPanel;
     [SerializeField]
     private TMP_Text objectiveText;
+    [SerializeField]
+    private TMP_Text functionText;
 
     private ARSessionOrigin mSessionOrigin;
 
@@ -39,7 +43,6 @@ public class ListLevel : MonoBehaviour
 
     private ARRaycastManager raycastManager;
 
-    private List<GameObject> worldElements = new List<GameObject>();
     private List<Element> elements = new List<Element>()
     {
         new Element("Orange", 1),
@@ -54,17 +57,26 @@ public class ListLevel : MonoBehaviour
         new Element("Leek", 2)
     };
     private GameObject selectedWorldElement;
-    private GameObject emptyGameObject;
 
+    private GameObject emptyGameObject;
     private GameObject chest1;
     private GameObject chest2;
 
     private int correctAnswers = 0;
 
+    private List<GameObject> worldElementsInArea = new List<GameObject>();
     private List<GameObject> worldElementsInChest = new List<GameObject>();
-
     private List<Element> stackElements = new List<Element>();
     private List<GameObject> worldElementsInStack = new List<GameObject>();
+
+    private int functionQuestionStage = 1;
+
+    [SerializeField]
+    private GameObject menuHandler;
+
+    [SerializeField]
+    private LineRenderer raycastLine;
+
 
     protected class Element
     {
@@ -97,8 +109,6 @@ public class ListLevel : MonoBehaviour
             this.correctList = correctList;
         }
     }
-
-
     private void Awake()
     {
         raycastManager = GetComponent<ARRaycastManager>();
@@ -120,17 +130,18 @@ public class ListLevel : MonoBehaviour
         {
             case 1:
                 if (raycastManager.Raycast(targetRay, hits, TrackableType.PlaneWithinPolygon)) {
-                    foreach (GameObject text in worldElements)
+                    foreach (GameObject text in worldElementsInArea)
                     {
-                        if (Vector3.Distance(text.transform.position, hits[0].pose.position) < 1.3) //Check there is sufficient euclidian distance between words
+                        if (Vector3.Distance(text.transform.position, hits[0].pose.position) < 1.1) //Check there is sufficient euclidian distance between words
                         {
                             return;
                         }
                     }
                     CreateAnchor(hits[0]);
-                    if (worldElements.Count == 10) //Switch stage once 10 words are in the environment
+                    if (worldElementsInArea.Count == 10) //Switch stage once 10 words are in the environment
                     {
                         stage = 2;
+                        objectiveText.text = "Tap an open space in the room!";
                     }   
                 }
                 break;
@@ -146,8 +157,9 @@ public class ListLevel : MonoBehaviour
                     if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinBounds))
                     {
                         CreateAnchor(hits[0]);
-                        levelCanvas.SetActive(true);
                         stage = 3;
+                        objectiveText.text = "Append the elements to the correct list!";
+                        appendPanel.SetActive(true);
                     } 
                 }
                 break;
@@ -157,19 +169,26 @@ public class ListLevel : MonoBehaviour
                 {
                     for (int i = 0; i < 10; i++)
                     {
-                        Destroy(worldElements[i]);
+                        Destroy(worldElementsInArea[i]);
                         Destroy(worldElementsInChest[i]);
                     }
                     Destroy(chest1);
                     Destroy(chest2);
                     stage = 4;
                     CreateAnchor(hits[0]);
+                    appendPanel.SetActive(false);
+                    functionPanel.SetActive(true);
+                    objectiveText.text = "Select the correct index returned by the function";
                     break;
                 }
                 if (Physics.Raycast(targetRay, out hit, 50f))
                 {
                     if (hit.transform.name == "3DTextEnvironment(Clone)")
                     {
+                        if (selectedWorldElement != null && selectedWorldElement != hit.transform.gameObject)
+                        {
+                            selectedWorldElement.GetComponent<ThreeDimensionalTextEnvironment>().HideHighlight();
+                        }
                         hit.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().ShowHighlight();
                         selectedWorldElement = hit.transform.gameObject;
                         chest1.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
@@ -183,9 +202,9 @@ public class ListLevel : MonoBehaviour
                 else
                 {
                     selectedWorldElement = null;
-                    foreach (GameObject text in worldElements)
+                    foreach (GameObject e in worldElementsInArea)
                     {
-                        text.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().HideHighlight();
+                        e.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().HideHighlight();
                     }
                     chest1.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
                     chest2.GetComponentInChildren<ChestAnimationHandler>().CloseChest();
@@ -198,10 +217,7 @@ public class ListLevel : MonoBehaviour
                     {
                         foreach(GameObject e in worldElementsInStack) 
                         {
-                            if (e.transform.gameObject == hit.transform.gameObject)
-                            {
-                                hit.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().ShowHighlight();
-                            } else
+                            if (!(e.transform.gameObject == hit.transform.gameObject))
                             {
                                 e.transform.gameObject.GetComponent<ThreeDimensionalTextEnvironment>().HideHighlight();
                             }
@@ -230,7 +246,7 @@ public class ListLevel : MonoBehaviour
         {
             case 1:
                 GameObject text = Instantiate(elementPrefab);
-                Element element = elements[worldElements.Count];
+                Element element = elements[worldElementsInArea.Count];
                 text.GetComponent<ThreeDimensionalText>().ChangeText(element.GetValue());
                 text.transform.position = hit.pose.position;
 
@@ -241,7 +257,7 @@ public class ListLevel : MonoBehaviour
                 }
                 text.GetComponent<ThreeDimensionalTextEnvironment>().correctList = element.GetCorrectList();
 
-                worldElements.Add(text);
+                worldElementsInArea.Add(text);
                 return anchor;
             case 2:
                 emptyGameObject = Instantiate(new GameObject("EmptyGameObject"));
@@ -303,22 +319,94 @@ public class ListLevel : MonoBehaviour
         {
             if (listNo == selectedWorldElement.GetComponent<ThreeDimensionalTextEnvironment>().correctList)
             {
-                worldElementsInChest[worldElements.IndexOf(selectedWorldElement)].SetActive(true);
-                selectedWorldElement.SetActive(false);
+                SoundManagerScript.PlaySound("correct");
+                worldElementsInChest[worldElementsInArea.IndexOf(selectedWorldElement)].SetActive(true);
                 correctAnswers++;
                 if (listNo == 1)
                 {
-                    stackElements.Add(elements[worldElements.IndexOf(selectedWorldElement)]);
+                    stackElements.Add(elements[worldElementsInArea.IndexOf(selectedWorldElement)]);
                 }
+                selectedWorldElement.SetActive(false);
             } 
             else
             {
-                //TODO notify user they selected wrong list;
+                SoundManagerScript.PlaySound("incorrect");
             }
         }
         else
         {
-            //TODO notify user they must be targeting an element!
+            //StartCoroutine(SelectTargetAlert());
+        }
+    }
+
+    private IEnumerator SelectTargetAlert()
+    {
+        objectiveText.text = "You must select a target";
+        yield return new WaitForSeconds(2);
+        if (stage == 3)
+        {
+        objectiveText.text = "Append the elements to the correct list!";
+        }
+    }
+
+    public void SubmitFunctionIndex()
+    {
+        StartCoroutine(FunctionAnswer());
+    }
+
+    private IEnumerator FunctionAnswer()
+    {
+        switch (functionQuestionStage)
+        {
+            case 1:
+                if (selectedWorldElement == worldElementsInStack[1])
+                {
+                    functionPanel.SetActive(false);
+                    objectiveText.text = "Well done!";
+                    functionText.text = "Fruits.pop(0)";
+                    functionQuestionStage = 2;
+                    SoundManagerScript.PlaySound("correct");
+                    yield return new WaitForSeconds(2);
+                    objectiveText.text = "Select the correct index returned by the function";
+                    functionPanel.SetActive(true);
+                }
+                else
+                {
+                    SoundManagerScript.PlaySound("incorrect");
+                }
+                break;
+            case 2:
+                if (selectedWorldElement == worldElementsInStack[0])
+                {
+                    worldElementsInStack.RemoveAt(0);
+                    Destroy(selectedWorldElement);
+                    functionText.text = "Fruits[-1] = 'Kiwi'";
+                    functionQuestionStage = 3;
+                    SoundManagerScript.PlaySound("correct");
+                    functionPanel.SetActive(false);
+                    objectiveText.text = "Well done!";
+                    yield return new WaitForSeconds(2);
+                    objectiveText.text = "Select the correct index returned by the function";
+                    functionPanel.SetActive(true);
+                }
+                else
+                {
+                    SoundManagerScript.PlaySound("incorrect");
+                }
+                break;
+            case 3:
+                if (selectedWorldElement == worldElementsInStack[3])
+                {
+                    worldElementsInStack[3].GetComponent<ThreeDimensionalTextEnvironment>().ChangeText("Kiwi");
+                    functionText.text = "Next Question";
+                    menuHandler.GetComponent<ListLevelMenuHandler>().FinishLevel();
+                    SoundManagerScript.PlaySound("correct");
+                }
+                else
+                {
+                    SoundManagerScript.PlaySound("incorrect");
+                }
+                break;
         }
     }
 }
